@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prathmesh Kohale | Mechanical Design Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --bg-deep:#0a0c1b;
+    --bg-panel:#12142a;
+    --bg-card:#181b34;
+    --border:#272a48;
+    --text-main:#f4f4f8;
+    --text-muted:#9498b8;
+    --accent-1:#ec4899;
+    --accent-2:#8b5cf6;
+    --accent-3:#6366f1;
+    --grad: linear-gradient(135deg, var(--accent-1), var(--accent-2) 55%, var(--accent-3));
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--bg-deep);
+    color:var(--text-main);
+    line-height:1.6;
+  }
+  h1,h2,h3,h4{font-family:'Poppins',sans-serif;}
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+  .container{max-width:1180px;margin:0 auto;padding:0 32px;}
+
+  /* ===== Layout Shell ===== */
+  .shell{display:flex;min-height:100vh;}
+
+  /* ===== Sidebar ===== */
+  .sidebar{
+    width:260px;flex-shrink:0;
+    background:var(--bg-panel);
+    border-right:1px solid var(--border);
+    padding:32px 24px;
+    display:flex;flex-direction:column;
+    position:sticky;top:0;height:100vh;overflow-y:auto;
+  }
+  .brand{display:flex;align-items:center;gap:12px;margin-bottom:40px;}
+  .brand-mark{
+    width:42px;height:42px;border-radius:12px;
+    background:var(--grad);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Poppins';font-weight:800;font-size:18px;flex-shrink:0;
+  }
+  .brand-name{font-size:15px;font-weight:600;line-height:1.2;}
+  .brand-role{font-size:11.5px;color:var(--text-muted);}
+
+  .side-nav{display:flex;flex-direction:column;gap:4px;margin-bottom:32px;}
+  .side-nav a{
+    display:flex;align-items:center;gap:12px;
+    padding:11px 14px;border-radius:10px;
+    font-size:14px;color:var(--text-muted);font-weight:500;
+    transition:background .18s, color .18s;
+  }
+  .side-nav a i{width:18px;text-align:center;font-size:14px;}
+  .side-nav a:hover{color:var(--text-main);background:rgba(255,255,255,.04);}
+  .side-nav a.active{color:#fff;background:var(--grad);}
+
+  .side-callout{
+    background:linear-gradient(150deg,#241b3d,#1a1530);
+    border:1px solid var(--border);
+    border-radius:14px;padding:18px;margin-bottom:20px;
+  }
+  .side-callout h4{font-size:14px;margin-bottom:6px;}
+  .side-callout p{font-size:12.5px;color:var(--text-muted);margin-bottom:12px;}
+  .btn-mini{
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--grad);color:#fff;font-size:12.5px;font-weight:600;
+    padding:8px 14px;border-radius:8px;
+  }
+
+  .side-download{
+    display:flex;align-items:center;justify-content:space-between;
+    border:1px solid var(--border);border-radius:10px;
+    padding:10px 12px;font-size:12.5px;color:var(--text-muted);margin-bottom:18px;
+  }
+  .side-download span{color:var(--text-main);font-size:12px;}
+  .side-download i{color:var(--accent-1);}
+
+  .side-social{display:flex;gap:10px;margin-top:auto;padding-top:8px;}
+  .side-social a{
+    width:34px;height:34px;border-radius:9px;border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--text-muted);
+    transition:.18s;
+  }
+  .side-social a:hover{background:var(--grad);color:#fff;border-color:transparent;}
+
+  /* ===== Main ===== */
+  .main{flex:1;min-width:0;}
+
+  .topbar{
+    position:sticky;top:0;z-index:20;
+    background:rgba(10,12,27,.85);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .topbar-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 40px;
+  }
+  .top-nav{display:flex;gap:30px;}
+  .top-nav a{font-size:13.5px;font-weight:500;color:var(--text-muted);position:relative;}
+  .top-nav a.active{color:#fff;}
+  .top-nav a.active::after{
+    content:'';position:absolute;left:0;bottom:-16px;width:100%;height:2px;background:var(--grad);
+  }
+  .btn-talk{
+    background:var(--grad);color:#fff;font-size:13px;font-weight:600;
+    padding:10px 18px;border-radius:9px;display:inline-flex;align-items:center;gap:8px;
+  }
+
+  section{padding:64px 40px;}
+  .eyebrow{font-size:12.5px;color:var(--accent-1);font-weight:600;margin-bottom:8px;letter-spacing:.2px;}
+
+  /* ===== Hero ===== */
+  .hero{
+    padding:64px 40px 40px;
+    display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;
+  }
+  .hero-greet{color:var(--accent-1);font-weight:600;font-size:14px;margin-bottom:14px;}
+  .hero h1{font-size:44px;font-weight:800;line-height:1.15;margin-bottom:18px;}
+  .hero h1 .hl{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .hero p{color:var(--text-muted);font-size:15.5px;max-width:480px;margin-bottom:14px;}
+  .badge-row{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 26px;}
+  .badge{
+    display:inline-flex;align-items:center;gap:7px;
+    background:var(--bg-card);border:1px solid var(--border);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;color:var(--text-muted);
+  }
+  .badge i{color:var(--accent-1);font-size:11px;}
+  .hero-ctas{display:flex;gap:14px;align-items:center;margin-bottom:30px;}
+  .btn-primary{
+    background:var(--grad);color:#fff;font-weight:600;font-size:14px;
+    padding:14px 24px;border-radius:11px;display:inline-flex;align-items:center;gap:8px;
+    box-shadow:0 10px 30px -8px rgba(139,92,246,.55);
+  }
+  .btn-ghost{
+    display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--text-main);
+  }
+  .play-circle{
+    width:38px;height:38px;border-radius:50%;border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;font-size:11px;
+  }
+  .trust-label{font-size:11.5px;color:var(--text-muted);margin-bottom:12px;}
+  .trust-row{display:flex;gap:22px;flex-wrap:wrap;align-items:center;}
+  .trust-row span{font-size:13px;color:#c7c9de;font-weight:600;opacity:.85;}
+
+  .hero-visual{position:relative;display:flex;justify-content:center;align-items:center;}
+  .hero-orb{
+    width:340px;height:340px;border-radius:50%;
+    background:radial-gradient(circle at 32% 30%, #ff8fd0, #a855f7 45%, #4338ca 85%);
+    display:flex;align-items:center;justify-content:center;position:relative;
+    box-shadow:0 30px 80px -20px rgba(139,92,246,.55);
+  }
+  .hero-orb i{font-size:150px;color:rgba(255,255,255,.92);filter:drop-shadow(0 10px 25px rgba(0,0,0,.35));}
+  .exp-chip{
+    position:absolute;bottom:10px;right:0;
+    background:var(--bg-card);border:1px solid var(--border);
+    border-radius:14px;padding:14px 18px;text-align:center;
+    box-shadow:0 15px 30px -10px rgba(0,0,0,.5);
+  }
+  .exp-chip strong{font-size:20px;display:block;}
+  .exp-chip span{font-size:11px;color:var(--text-muted);}
+
+  /* ===== Services ===== */
+  .services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:26px;}
+  .service-card{
+    background:var(--bg-card);border:1px solid var(--border);border-radius:16px;
+    padding:22px;transition:transform .2s, border-color .2s;
+  }
+  .service-card:hover{transform:translateY(-4px);border-color:var(--accent-2);}
+  .service-icon{
+    width:44px;height:44px;border-radius:12px;background:var(--grad);
+    display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:16px;
+  }
+  .service-card h4{font-size:15.5px;margin-bottom:8px;}
+  .service-card p{font-size:13px;color:var(--text-muted);}
+
+  /* ===== Section heading ===== */
+  .section-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:6px;}
+  .section-head h2{font-size:27px;font-weight:700;}
+  .view-all{font-size:13px;color:var(--accent-1);font-weight:600;display:flex;align-items:center;gap:6px;}
+
+  /* ===== Projects ===== */
+  .projects-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:26px;}
+  .project-card{
+    background:var(--bg-card);border:1px solid var(--border);border-radius:16px;overflow:hidden;
+    transition:transform .2s;
+  }
+  .project-card:hover{transform:translateY(-4px);}
+  .project-thumb{
+    height:130px;display:flex;align-items:center;justify-content:center;font-size:38px;color:#fff;
+  }
+  .thumb-1{background:linear-gradient(135deg,#312e81,#6d28d9);}
+  .thumb-2{background:linear-gradient(135deg,#831843,#be185d);}
+  .thumb-3{background:linear-gradient(135deg,#0f172a,#334155);}
+  .thumb-4{background:linear-gradient(135deg,#1e3a8a,#0ea5e9);}
+  .project-body{padding:16px;}
+  .project-tag{font-size:10.5px;color:var(--accent-1);background:rgba(236,72,153,.12);padding:3px 9px;border-radius:6px;display:inline-block;margin-bottom:8px;}
+  .project-body h4{font-size:14.5px;margin-bottom:3px;}
+  .project-body span{font-size:12px;color:var(--text-muted);}
+
+  /* ===== Stats ===== */
+  .stats-bar{
+    margin-top:44px;background:var(--grad);border-radius:18px;
+    display:grid;grid-template-columns:repeat(4,1fr);
+    padding:30px 10px;
+  }
+  .stat{display:flex;align-items:center;gap:12px;justify-content:center;text-align:left;}
+  .stat i{font-size:22px;opacity:.9;}
+  .stat strong{font-size:22px;display:block;}
+  .stat span{font-size:12px;opacity:.85;}
+
+  /* ===== Education ===== */
+  .edu-list{display:flex;flex-direction:column;gap:14px;margin-top:26px;}
+  .edu-item{
+    background:var(--bg-card);border:1px solid var(--border);border-radius:14px;
+    padding:20px 22px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  }
+  .edu-item.current{border-color:var(--accent-2);background:linear-gradient(90deg, rgba(139,92,246,.12), rgba(24,27,52,1) 40%);}
+  .edu-left{display:flex;gap:16px;align-items:flex-start;}
+  .edu-icon{
+    width:42px;height:42px;border-radius:11px;background:var(--bg-panel);border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--accent-1);flex-shrink:0;
+  }
+  .edu-item.current .edu-icon{background:var(--grad);color:#fff;border:none;}
+  .edu-left h4{font-size:15px;margin-bottom:3px;}
+  .edu-left p{font-size:12.5px;color:var(--text-muted);}
+  .edu-right{text-align:right;}
+  .edu-right strong{font-size:16px;display:block;}
+  .edu-right span{font-size:11.5px;color:var(--text-muted);}
+  .pill-current{
+    background:var(--grad);color:#fff;font-size:10.5px;font-weight:700;padding:4px 10px;
+    border-radius:100px;display:inline-block;margin-top:4px;
+  }
+
+  /* ===== Skills / certs ===== */
+  .skills-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;margin-top:26px;}
+  .skill-bars{display:flex;flex-direction:column;gap:16px;}
+  .skill-row{}
+  .skill-row-top{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:7px;}
+  .skill-row-top span:last-child{color:var(--text-muted);}
+  .bar-track{height:8px;border-radius:6px;background:var(--bg-card);overflow:hidden;}
+  .bar-fill{height:100%;border-radius:6px;background:var(--grad);}
+  .certs{display:flex;flex-direction:column;gap:12px;}
+  .cert-item{
+    display:flex;align-items:center;gap:14px;
+    background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;
+  }
+  .cert-item i{font-size:18px;color:var(--accent-1);}
+  .cert-item h5{font-size:13.5px;}
+  .cert-item span{font-size:11.5px;color:var(--text-muted);}
+
+  /* ===== Experience ===== */
+  .exp-card{
+    background:var(--bg-card);border:1px solid var(--border);border-radius:16px;
+    padding:26px;margin-top:26px;display:flex;gap:20px;
+  }
+  .exp-icon{
+    width:52px;height:52px;border-radius:14px;background:var(--grad);flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;font-size:22px;
+  }
+  .exp-card h4{font-size:16.5px;margin-bottom:2px;}
+  .exp-card .exp-meta{font-size:12.5px;color:var(--accent-1);font-weight:600;margin-bottom:10px;}
+  .exp-card ul{display:flex;flex-direction:column;gap:8px;}
+  .exp-card li{font-size:13.5px;color:var(--text-muted);padding-left:18px;position:relative;}
+  .exp-card li::before{content:'';position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--accent-1);}
+
+  /* ===== Languages ===== */
+  .lang-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px;}
+  .lang-chip{
+    background:var(--bg-card);border:1px solid var(--border);padding:12px 20px;border-radius:12px;
+    font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:10px;
+  }
+  .lang-chip i{color:var(--accent-1);}
+
+  /* ===== Contact ===== */
+  .contact-panel{
+    margin-top:26px;background:linear-gradient(120deg,#301b4d,#1b1533);
+    border-radius:22px;padding:44px;display:grid;grid-template-columns:.9fr 1.1fr;gap:36px;
+  }
+  .contact-panel h2{font-size:27px;margin-bottom:8px;}
+  .contact-panel p{color:var(--text-muted);font-size:14px;margin-bottom:24px;max-width:340px;}
+  .contact-info{display:flex;flex-direction:column;gap:16px;}
+  .contact-info li{display:flex;align-items:center;gap:12px;font-size:13.5px;list-style:none;}
+  .contact-info i{
+    width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.08);
+    display:flex;align-items:center;justify-content:center;font-size:14px;
+  }
+  .contact-info span{display:block;color:var(--text-muted);font-size:11.5px;}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .form-grid input, .form-grid textarea{
+    grid-column:span 1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+    border-radius:10px;padding:13px 14px;color:#fff;font-size:13.5px;font-family:inherit;
+  }
+  .form-grid textarea{grid-column:span 2;resize:vertical;min-height:90px;}
+  .form-grid ::placeholder{color:#a9abc9;}
+  .btn-send{
+    grid-column:span 2;background:var(--grad);color:#fff;font-weight:600;font-size:14px;
+    padding:14px;border:none;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;
+  }
+
+  footer{
+    text-align:center;padding:26px;color:var(--text-muted);font-size:12.5px;
+    border-top:1px solid var(--border);
+  }
+
+  /* ===== Mobile nav toggle ===== */
+  .menu-toggle{display:none;background:none;border:none;color:#fff;font-size:20px;}
+
+  @media (max-width: 980px){
+    .hero{grid-template-columns:1fr;}
+    .hero-visual{order:-1;}
+    .services-grid{grid-template-columns:repeat(2,1fr);}
+    .projects-grid{grid-template-columns:repeat(2,1fr);}
+    .stats-bar{grid-template-columns:repeat(2,1fr);gap:20px;}
+    .skills-wrap{grid-template-columns:1fr;}
+    .contact-panel{grid-template-columns:1fr;padding:28px;}
+    .top-nav{display:none;}
+  }
+  @media (max-width: 720px){
+    .sidebar{position:fixed;left:-280px;z-index:50;transition:left .25s;box-shadow:20px 0 40px rgba(0,0,0,.4);}
+    .sidebar.open{left:0;}
+    .menu-toggle{display:block;}
+    .topbar-inner{padding:16px 20px;}
+    section{padding:44px 20px;}
+    .hero{padding:36px 20px 20px;}
+    .hero h1{font-size:32px;}
+    .services-grid, .projects-grid{grid-template-columns:1fr;}
+    .stats-bar{grid-template-columns:1fr;}
+    .edu-item{flex-direction:column;align-items:flex-start;}
+    .edu-right{text-align:left;}
+    .form-grid input, .form-grid textarea{grid-column:span 2;}
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark">PK</div>
+      <div>
+        <div class="brand-name">Prathmesh Kohale</div>
+        <div class="brand-role">Mechanical Design Engineer</div>
+      </div>
+    </div>
+
+    <nav class="side-nav">
+      <a href="#home" class="active"><i class="fa-solid fa-house"></i>Home</a>
+      <a href="#about"><i class="fa-solid fa-user"></i>About</a>
+      <a href="#skills"><i class="fa-solid fa-gears"></i>Skills</a>
+      <a href="#education"><i class="fa-solid fa-graduation-cap"></i>Education</a>
+      <a href="#projects"><i class="fa-solid fa-diagram-project"></i>Projects</a>
+      <a href="#experience"><i class="fa-solid fa-briefcase"></i>Experience</a>
+      <a href="#contact"><i class="fa-solid fa-envelope"></i>Contact</a>
+    </nav>
+
+    <div class="side-callout">
+      <h4>Currently pursuing</h4>
+      <p>B.Tech at G. H. Raisoni College of Engineering, Nagpur</p>
+      <span class="btn-mini"><i class="fa-solid fa-arrow-up-right-dots"></i> In Progress</span>
+    </div>
+
+    <div class="side-download">
+      <span><i class="fa-solid fa-file-arrow-down"></i>&nbsp; Prathmesh_CV.pdf</span>
+      <i class="fa-solid fa-download"></i>
+    </div>
+
+    <div class="side-social">
+      <a href="mailto:prathmeshkohale26@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+      <a href="tel:+919657892497" title="Call"><i class="fa-solid fa-phone"></i></a>
+      <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      <a href="#" title="GitHub"><i class="fa-brands fa-github"></i></a>
+    </div>
+  </aside>
+
+  <!-- ================= MAIN ================= -->
+  <div class="main">
+
+    <div class="topbar">
+      <div class="topbar-inner">
+        <button class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <nav class="top-nav">
+          <a href="#home" class="active">Home</a>
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#education">Education</a>
+          <a href="#projects">Projects</a>
+          <a href="#experience">Experience</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <a href="#contact" class="btn-talk"><i class="fa-solid fa-comment-dots"></i> Let's Talk</a>
+      </div>
+    </div>
+
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="home">
+      <div>
+        <div class="hero-greet">HELLO, I'M</div>
+        <h1>Prathmesh <span class="hl">Kohale</span></h1>
+        <h1 style="font-size:22px;font-weight:600;color:#d3d5ea;margin-top:-6px;">I Build Ideas Into <span class="hl">Precision Machines.</span></h1>
+        <p>A Mechanical Engineering diploma holder from Nagpur, now pursuing my B.Tech at G. H. Raisoni College of Engineering. I design, model and inspect components with AutoCAD and SolidWorks &mdash; and I learn fast.</p>
+
+        <div class="badge-row">
+          <span class="badge"><i class="fa-solid fa-drafting-compass"></i>AutoCAD</span>
+          <span class="badge"><i class="fa-solid fa-cube"></i>SolidWorks</span>
+          <span class="badge"><i class="fa-solid fa-magnifying-glass-chart"></i>Quality Inspection</span>
+          <span class="badge"><i class="fa-solid fa-industry"></i>Lean Manufacturing</span>
+        </div>
+
+        <div class="hero-ctas">
+          <a href="#projects" class="btn-primary"><i class="fa-solid fa-arrow-right"></i> View My Work</a>
+          <a href="#about" class="btn-ghost"><span class="play-circle"><i class="fa-solid fa-play"></i></span> Know Me Better</a>
+        </div>
+
+        <div class="trust-label">Worked & trained with</div>
+        <div class="trust-row">
+          <span><i class="fa-solid fa-tractor"></i>&nbsp; John Deere Pune Works</span>
+          <span><i class="fa-solid fa-school"></i>&nbsp; Nagpur Institute of Technology</span>
+          <span><i class="fa-solid fa-graduation-cap"></i>&nbsp; G. H. Raisoni, Nagpur</span>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-orb">
+          <i class="fa-solid fa-gears"></i>
+        </div>
+        <div class="exp-chip">
+          <strong>8+</strong>
+          <span>Months Industry<br>Exposure</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SERVICES / SKILLS OVERVIEW ================= -->
+    <section id="skills-intro">
+      <div class="eyebrow">WHAT I DO</div>
+      <div class="section-head"><h2>Where I Add Value</h2></div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-drafting-compass"></i></div>
+          <h4>Mechanical Design</h4>
+          <p>Creating precise 2D drawings and part designs using AutoCAD.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-cube"></i></div>
+          <h4>3D Modeling</h4>
+          <p>Building accurate 3D models and assemblies in SolidWorks.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+          <h4>Quality Inspection</h4>
+          <p>Checking components for precision, tolerance and finish standards.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-people-arrows"></i></div>
+          <h4>Presentation & Docs</h4>
+          <p>Communicating technical ideas clearly through reports and presentations.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ABOUT ================= -->
+    <section id="about">
+      <div class="eyebrow">GET TO KNOW ME</div>
+      <div class="section-head"><h2>About Me</h2></div>
+      <p style="max-width:640px;color:var(--text-muted);margin-top:16px;font-size:14.5px;">
+        I'm an adaptable, quick-learning mechanical engineer from Kalmeshwar, Nagpur. I completed my Diploma in Mechanical Engineering at Nagpur Institute of Technology with 81.03%, and I'm currently continuing my education with a B.Tech at G. H. Raisoni College of Engineering, Nagpur. Along the way, I picked up hands-on manufacturing experience at John Deere's Pune transmission factory, where I learned what precision and lean processes look like on a real production floor. I'm confident in communication, quick to solve problems, and comfortable presenting technical work to any audience.
+      </p>
+
+      <div class="lang-row">
+        <div class="lang-chip"><i class="fa-solid fa-language"></i>English</div>
+        <div class="lang-chip"><i class="fa-solid fa-language"></i>Hindi</div>
+        <div class="lang-chip"><i class="fa-solid fa-language"></i>Marathi</div>
+      </div>
+    </section>
+
+    <!-- ================= SKILLS DETAIL + CERTS ================= -->
+    <section id="skills">
+      <div class="eyebrow">MY TOOLKIT</div>
+      <div class="section-head"><h2>Skills & Certifications</h2></div>
+
+      <div class="skills-wrap">
+        <div class="skill-bars">
+          <div class="skill-row">
+            <div class="skill-row-top"><span>AutoCAD</span><span>90%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:90%"></div></div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-row-top"><span>SolidWorks</span><span>85%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:85%"></div></div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-row-top"><span>Communication & Presentation</span><span>92%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:92%"></div></div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-row-top"><span>Problem Solving</span><span>88%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:88%"></div></div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-row-top"><span>MSCIT / Computer Fundamentals</span><span>80%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:80%"></div></div>
+          </div>
+        </div>
+
+        <div class="certs">
+          <div class="cert-item">
+            <i class="fa-solid fa-certificate"></i>
+            <div><h5>AutoCAD Certification</h5><span>Computer-aided design & drafting</span></div>
+          </div>
+          <div class="cert-item">
+            <i class="fa-solid fa-certificate"></i>
+            <div><h5>SolidWorks Certification</h5><span>3D modeling & assembly design</span></div>
+          </div>
+          <div class="cert-item">
+            <i class="fa-solid fa-certificate"></i>
+            <div><h5>MSCIT</h5><span>Maharashtra State Certificate in IT</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= EDUCATION ================= -->
+    <section id="education">
+      <div class="eyebrow">MY LEARNING PATH</div>
+      <div class="section-head"><h2>Education</h2></div>
+
+      <div class="edu-list">
+        <div class="edu-item current">
+          <div class="edu-left">
+            <div class="edu-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div>
+              <h4>B.Tech &mdash; Mechanical Engineering</h4>
+              <p>G. H. Raisoni College of Engineering, Nagpur</p>
+              <span class="pill-current">Currently Pursuing</span>
+            </div>
+          </div>
+          <div class="edu-right">
+            <strong>2025 &ndash; Present</strong>
+            <span>In Progress</span>
+          </div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-left">
+            <div class="edu-icon"><i class="fa-solid fa-diagram-project"></i></div>
+            <div>
+              <h4>Diploma &mdash; Mechanical Engineering</h4>
+              <p>Nagpur Institute of Technology, Nagpur</p>
+            </div>
+          </div>
+          <div class="edu-right">
+            <strong>81.03%</strong>
+            <span>2025</span>
+          </div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-left">
+            <div class="edu-icon"><i class="fa-solid fa-book"></i></div>
+            <div>
+              <h4>HSC</h4>
+              <p>Nagar Parishad Junior College, Kalmeshwar</p>
+            </div>
+          </div>
+          <div class="edu-right">
+            <strong>46.50%</strong>
+            <span>2023</span>
+          </div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-left">
+            <div class="edu-icon"><i class="fa-solid fa-school"></i></div>
+            <div>
+              <h4>SSC</h4>
+              <p>Nagar Parishad Higher Secondary School, Kalmeshwar</p>
+            </div>
+          </div>
+          <div class="edu-right">
+            <strong>78.40%</strong>
+            <span>2021</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PROJECTS ================= -->
+    <section id="projects">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">MY WORK</div>
+          <h2>Featured Design Work</h2>
+        </div>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-thumb thumb-1"><i class="fa-solid fa-cube"></i></div>
+          <div class="project-body">
+            <span class="project-tag">SolidWorks</span>
+            <h4>Component Assembly Model</h4>
+            <span>3D Modeling</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-thumb thumb-2"><i class="fa-solid fa-drafting-compass"></i></div>
+          <div class="project-body">
+            <span class="project-tag">AutoCAD</span>
+            <h4>Mechanical Part Drawing</h4>
+            <span>2D Drafting</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-thumb thumb-3"><i class="fa-solid fa-gears"></i></div>
+          <div class="project-body">
+            <span class="project-tag">Manufacturing</span>
+            <h4>Transmission Assembly</h4>
+            <span>John Deere Pune Works</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-thumb thumb-4"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+          <div class="project-body">
+            <span class="project-tag">Quality</span>
+            <h4>Inspection Process Study</h4>
+            <span>Lean Manufacturing</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-bar">
+        <div class="stat"><i class="fa-solid fa-graduation-cap"></i><div><strong>81.03%</strong><span>Diploma CGPA</span></div></div>
+        <div class="stat"><i class="fa-solid fa-award"></i><div><strong>3+</strong><span>Certifications</span></div></div>
+        <div class="stat"><i class="fa-solid fa-briefcase"></i><div><strong>8</strong><span>Months Experience</span></div></div>
+        <div class="stat"><i class="fa-solid fa-language"></i><div><strong>3</strong><span>Languages Known</span></div></div>
+      </div>
+    </section>
+
+    <!-- ================= EXPERIENCE ================= -->
+    <section id="experience">
+      <div class="eyebrow">HANDS-ON EXPERIENCE</div>
+      <div class="section-head"><h2>Work Experience</h2></div>
+
+      <div class="exp-card">
+        <div class="exp-icon"><i class="fa-solid fa-tractor"></i></div>
+        <div>
+          <h4>John Deere Pune Works &mdash; Transmission Factory</h4>
+          <div class="exp-meta">8 Months</div>
+          <ul>
+            <li>Assisted in transmission manufacturing and assembly operations with a focus on precision and efficiency.</li>
+            <li>Gained exposure to quality inspection processes and lean manufacturing practices in a global industrial environment.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section id="contact">
+      <div class="eyebrow">GET IN TOUCH</div>
+      <div class="section-head"><h2>Let's Work Together</h2></div>
+
+      <div class="contact-panel">
+        <div>
+          <h2>Let's Build Something<br>Precise.</h2>
+          <p>Open to internships, apprenticeships and mechanical design opportunities. Reach out any time.</p>
+          <ul class="contact-info">
+            <li><i class="fa-solid fa-envelope"></i><div>prathmeshkohale26@gmail.com<span>Email</span></div></li>
+            <li><i class="fa-solid fa-phone"></i><div>+91 96578 92497<span>Phone</span></div></li>
+            <li><i class="fa-solid fa-location-dot"></i><div>At. Zunki, Post &amp; Tal. Kalmeshwar, Dist. Nagpur &ndash; 441501<span>Location</span></div></li>
+          </ul>
+        </div>
+        <form class="form-grid" onsubmit="event.preventDefault(); window.location.href='mailto:prathmeshkohale26@gmail.com';">
+          <input type="text" placeholder="Your Name" required>
+          <input type="email" placeholder="Your Email" required>
+          <textarea placeholder="Your Message" required></textarea>
+          <button type="submit" class="btn-send"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      &copy; 2026 Prathmesh Vasantrao Kohale. Built with precision, just like my designs.
+    </footer>
+  </div>
+</div>
+
+<script>
+  // Highlight active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.top-nav a, .side-nav a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      const top = sec.offsetTop - 120;
+      if (scrollY >= top) current = sec.getAttribute('id');
+    });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+    });
+  });
+
+  // Close mobile sidebar on link click
+  document.querySelectorAll('.side-nav a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('sidebar').classList.remove('open'));
+  });
+</script>
+
+</body>
+</html>
